@@ -14,5 +14,5 @@ local_settings.py
 # OS
 .DS_Store
 
-# Claude Code
-.claude/
+# bd
+db.sqlite3
