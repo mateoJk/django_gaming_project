@@ -5,25 +5,33 @@
 {% block content %}
     <h1>Videogames Catalog</h1>
 
+    <div style="margin-bottom: 20px; text-align: right;">
+        <a href="{% url 'videogame_create' %}" class="btn btn-primary">+ Add New Game</a>
+    </div>
+
     {% if videogames %}
     <table>
         <thead>
             <tr>
                 <th>Title</th>
-                <th>Genre</th>
+                <th>Company</th> <th>Genre</th>
                 <th>Platform</th>
                 <th>Year</th>
                 <th>Description</th>
-            </tr>
+                <th>Actions</th> </tr>
         </thead>
         <tbody>
             {% for game in videogames %}
             <tr>
                 <td><strong>{{ game.title }}</strong></td>
-                <td>{{ game.genre }}</td>
+                <td>{{ game.company.name|default:"No Company" }}</td> <td>{{ game.genre }}</td>
                 <td>{{ game.platform }}</td>
                 <td>{{ game.release_year }}</td>
                 <td>{{ game.description }}</td>
+                <td class="action-links"> <a href="{% url 'videogame_detail' game.pk %}">View</a> | 
+                    <a href="{% url 'videogame_update' game.pk %}" style="color: #f0ad4e;">Edit</a> | 
+                    <a href="{% url 'videogame_delete' game.pk %}" style="color: #d9534f;">Delete</a>
+                </td>
             </tr>
             {% endfor %}
         </tbody>

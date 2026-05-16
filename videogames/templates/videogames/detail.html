@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ game.title }}{% endblock %}
+
+{% block content %}
+    <h1>Videogame Detail</h1>
+
+    <div style="background: white; padding: 30px; border-radius: 6px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); text-align: left; max-width: 600px; margin: 0 auto;">
+        <h2>{{ game.title }}</h2>
+        <p><strong>Company:</strong> {{ game.company.name|default:"Not specified" }}</p>
+        <p><strong>Genre:</strong> {{ game.genre }}</p>
+        <p><strong>Platform:</strong> {{ game.platform }}</p>
+        <p><strong>Release Year:</strong> {{ game.release_year }}</p>
+        
+        <p style="color: #888; font-size: 0.85rem; margin-top: 5px;">
+            <small>Created: {{ game.created_at|date:"d/m/Y H:i" }} | Last Update: {{ game.updated_at|date:"d/m/Y H:i" }}</small>
+        </p>
+
+        <hr style="border: 0; border-top: 1px solid #eee; margin: 20px 0;">
+        <p><strong>Description:</strong></p>
+        <p style="color: #555; line-height: 1.6;">{{ game.description|default:"No description available." }}</p>
+        
+        <div style="margin-top: 30px; text-align: right;">
+            <a href="{% url 'videogame_list' %}" class="btn btn-secondary">Back to Catalog</a>
+            <a href="{% url 'videogame_update' game.pk %}" class="btn btn-primary" style="background-color: #f0ad4e;">Edit Data</a>
+        </div>
+    </div>
+{% endblock %}
