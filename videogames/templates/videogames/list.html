@@ -3,43 +3,65 @@
 {% block title %}Catálogo de Videojuegos{% endblock %}
 
 {% block content %}
-    <h1>Videogames Catalog</h1>
-
-    <div style="margin-bottom: 20px; text-align: right;">
-        <a href="{% url 'videogame_create' %}" class="btn btn-primary">+ Add New Game</a>
+<div class="max-w-5xl mx-auto mt-6">
+    <div class="flex justify-between items-center mb-6">
+        <h1 class="text-2xl font-bold text-gray-900 font-serif">Videogames Catalog</h1>
+        <a href="{% url 'videogame_create' %}" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md text-sm shadow-sm transition">
+            + Add New Game
+        </a>
     </div>
 
     {% if videogames %}
-    <table>
-        <thead>
-            <tr>
-                <th>Title</th>
-                <th>Company</th> <th>Genre</th>
-                <th>Platform</th>
-                <th>Year</th>
-                <th>Description</th>
-                <th>Actions</th> </tr>
-        </thead>
-        <tbody>
-            {% for game in videogames %}
-            <tr>
-                <td><strong>{{ game.title }}</strong></td>
-                <td>{{ game.company.name|default:"No Company" }}</td> <td>{{ game.genre }}</td>
-                <td>{{ game.platform }}</td>
-                <td>{{ game.release_year }}</td>
-                <td>{{ game.description }}</td>
-                <td class="action-links"> <a href="{% url 'videogame_detail' game.pk %}">View</a> | 
-                    <a href="{% url 'videogame_update' game.pk %}" style="color: #f0ad4e;">Edit</a> | 
-                    <a href="{% url 'videogame_delete' game.pk %}" style="color: #d9534f;">Delete</a>
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+        <div class="bg-white rounded-xl shadow-md border border-gray-200 overflow-x-auto">
+            <table class="w-full text-left border-collapse">
+                <thead>
+                    <tr class="bg-slate-900 text-white text-sm">
+                        <th class="p-4 rounded-tl-xl">Cover</th>
+                        <th class="p-4">Title</th>
+                        <th class="p-4">Company</th>
+                        <th class="p-4">Genre</th>
+                        <th class="p-4">Platform</th>
+                        <th class="p-4">Year</th>
+                        <th class="p-4 rounded-tr-xl text-center">Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-200 text-sm">
+                    {% for game in videogames %}
+                        <tr class="hover:bg-blue-50/50 transition">
+                            <td class="p-4">
+                                {% if game.image %}
+                                    <img src="{{ game.image.url }}" alt="Cover" class="w-10 h-14 object-cover rounded shadow-sm">
+                                {% else %}
+                                    <div class="w-10 h-14 bg-gray-200 rounded flex items-center justify-center text-lg shadow-inner">
+                                        🎮
+                                    </div>
+                                {% endif %}
+                            </td>
+                            <td class="p-4 font-bold text-gray-900">{{ game.title }}</td>
+                            <td class="p-4 text-gray-600">{{ game.company.name|default:"No Company" }}</td>
+                            <td class="p-4 text-gray-600">{{ game.genre }}</td>
+                            <td class="p-4 text-gray-600">{{ game.platform }}</td>
+                            <td class="p-4 text-gray-600">{{ game.release_year }}</td>
+                            <td class="p-4 text-center space-x-2 font-medium">
+                                <a href="{% url 'videogame_detail' game.pk %}" class="text-blue-600 hover:underline">View</a>
+                                <span class="text-gray-300">|</span>
+                                <a href="{% url 'videogame_update' game.pk %}" class="text-amber-600 hover:underline">Edit</a>
+                                <span class="text-gray-300">|</span>
+                                <a href="{% url 'videogame_delete' game.pk %}" class="text-red-600 hover:underline">Delete</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
     {% else %}
-        <p class="empty">No hay juegos registrados.</p>
+        <div class="bg-white p-8 rounded-xl border border-dashed border-gray-300 text-center text-gray-500 shadow-sm max-w-md mx-auto mt-12">
+            No hay juegos registrados.
+        </div>
     {% endif %}
 
-    <br>
-    <a href="{% url 'home' %}" class="back-link">&larr; Back to Home</a>
+    <div class="mt-6">
+        <a href="{% url 'home' %}" class="text-blue-600 hover:underline text-sm font-medium">&larr; Back to Home</a>
+    </div>
+</div>
 {% endblock %}

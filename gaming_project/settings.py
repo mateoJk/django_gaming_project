@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'core',
     'videogames',
+    'authentication',
 ]
 
 MIDDLEWARE = [
@@ -117,3 +118,16 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = 'static/'
+
+
+AUTH_USER_MODEL = 'authentication.CustomUser'
+
+import os
+
+# Rutas para archivos multimedia subidos p usuarios
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# Redirect
+LOGIN_REDIRECT_URL = '/videogames/'
+LOGOUT_REDIRECT_URL = '/auth/login/'

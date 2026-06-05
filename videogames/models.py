@@ -47,6 +47,8 @@ class Videogame(models.Model):
     
     description = models.TextField("Descripción", blank=True, help_text="Breve resumen del juego")
     
+    image = models.ImageField("Portada del Juego", upload_to="covers/%Y/%m/", blank=True, null=True)
+
     # Campos de auditoría 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
